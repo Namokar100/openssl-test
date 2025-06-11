@@ -1,6 +1,8 @@
 name: CBOM Vulnerability Analysis with CLI
 
-on: [push]
+on:
+  push:
+  workflow_dispatch:
 
 env:
   CODEQL_VERSION: v2.21.2
@@ -85,6 +87,7 @@ jobs:
           -o "${{ env.ANALYSIS_OUTPUT_DIR }}/cbom.json" \
           -c "${{ env.ANALYSIS_OUTPUT_DIR }}/compliance_report.txt" \
           --rules "${RULES_PATH}" \
+          -vv
 
     - name: Check for Vulnerabilities
       id: check-vulnerabilities
