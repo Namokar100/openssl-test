@@ -1,14 +1,17 @@
-name: CBAE action
+name: Run CBOM Analysis with Custom Setup
 
-on: [push]
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
-  cbom-scan:
+  cbom-analysis:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Run CBOM Analysis
-        uses: Namokar100/cbae-action@v1.0.8
+      - uses: actions/checkout@v3
+      - uses: Namokar100/cbae-action@v1.0.7
         with:
           token: ${{ secrets.PAT_TOKEN }}
+          
+          build-command: |
+            ./config no-tests && make -j$(nproc)
