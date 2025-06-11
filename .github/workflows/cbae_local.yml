@@ -1,10 +1,6 @@
 name: CBOM Vulnerability Analysis with CLI
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-  workflow_dispatch:
+on: [push]
 
 env:
   CODEQL_VERSION: v2.21.2
@@ -85,7 +81,6 @@ jobs:
         # Run the CLI analysis
         python calyptra_ql/cli.py \
           "${REPO_PATH}" \
-          --build-command "autoreconf -fi && ./configure --with-openssl && make -j$(nproc)" \
           -o "${{ env.ANALYSIS_OUTPUT_DIR }}/cbom.json" \
           -c "${{ env.ANALYSIS_OUTPUT_DIR }}/compliance_report.txt" \
           --rules "${RULES_PATH}" \
