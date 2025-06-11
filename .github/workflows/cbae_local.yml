@@ -83,7 +83,7 @@ jobs:
         # Run the CLI analysis
         python calyptra_ql/cli.py \
           "${REPO_PATH}" \
-          --build-command "./config && make -j$(nproc)" \
+          --build-command "./config no-tests && make -j$(nproc)" \
           -o "${{ env.ANALYSIS_OUTPUT_DIR }}/cbom.json" \
           -c "${{ env.ANALYSIS_OUTPUT_DIR }}/compliance_report.txt" \
           --rules "${RULES_PATH}" \
