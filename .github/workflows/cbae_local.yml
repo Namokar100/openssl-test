@@ -67,12 +67,6 @@ jobs:
       run: |
         mkdir -p ${{ env.ANALYSIS_OUTPUT_DIR }}
 
-    - name: Build with custom command
-      run: |
-        autoreconf -fi
-        ./configure --with-openssl
-        make -j$(nproc)
-
     - name: Run CBOM Analysis
       run: |
         cd ${{ env.CBOM_TOOL_DIR }}
@@ -87,7 +81,7 @@ jobs:
         # Run the CLI analysis
         python calyptra_ql/cli.py \
           "${REPO_PATH}" \
-          --build-command "autoreconf -fi && ./configure --with-openssl && make -j$(nproc)" \
+          --build-command "./config && make -j$(nproc)" \
           -o "${{ env.ANALYSIS_OUTPUT_DIR }}/cbom.json" \
           -c "${{ env.ANALYSIS_OUTPUT_DIR }}/compliance_report.txt" \
           --rules "${RULES_PATH}" \
